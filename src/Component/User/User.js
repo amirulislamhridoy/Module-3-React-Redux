@@ -8,6 +8,7 @@ const User = ({user, children}) => {
         <div style={{border: '1px solid blue', padding: '3px'}}>
             <h3>{user.name}</h3>
             <p>{user.phone}</p>
+            <p>Quantity: {user?.quantity}</p>
             {!children && <button onClick={() => dispatch(add_to_card(user))}>Add to card</button>}
             {children && <button onClick={() => dispatch(remove_from_card(user))}>Remove from card</button>}
         </div>

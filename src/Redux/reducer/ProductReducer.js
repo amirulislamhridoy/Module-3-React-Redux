@@ -9,7 +9,10 @@ const productReducer = (state = initialState, action) => {
     switch(action.type){
         case ADD_TO_CARD:
             if (selectedUser){
-                return state;
+                const newCard = state.card.filter(user => user.id !== action.payload.id)
+                return {
+                    card: [...newCard, {...selectedUser, quantity: selectedUser.quantity + 1}]
+                }
             }
             return{
                 // card: [...state.card, action.payload]
