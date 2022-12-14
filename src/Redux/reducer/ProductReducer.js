@@ -10,8 +10,9 @@ const productReducer = (state = initialState, action) => {
         case ADD_TO_CARD:
             if (selectedUser){
                 const newCard = state.card.filter(user => user.id !== action.payload.id)
+                selectedUser.quantity += 1
                 return {
-                    card: [...newCard, {...selectedUser, quantity: selectedUser.quantity + 1}]
+                    card: [...newCard, {...selectedUser}]
                 }
             }
             return{
@@ -19,9 +20,16 @@ const productReducer = (state = initialState, action) => {
                 card: [...state.card, {...action.payload, quantity: 1}]
             }
         case REMOVE_FROM_CARD:
-            return{
-                // card: [...state.card, action.payload]
-                card: [...state.card.filter(u => u.id !== action.payload.id)]
+            if(selectedUser.quantity > 1){
+                selectedUser.quantity -= 1
+                return {
+                    card: [...state.card.filter(u => u.id !== action.payload.id), selectedUser]
+                }
+            }else{
+                return{
+                    // card: [...state.card, action.payload]
+                    card: [...state.card.filter(u => u.id !== action.payload.id)]
+                }
             }
         default:
             return state

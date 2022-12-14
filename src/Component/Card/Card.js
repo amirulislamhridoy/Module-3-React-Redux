@@ -7,7 +7,7 @@ const Card = () => {
     const cardUsers = state.card
     return (
         <div>
-            {cardUsers.map(user => <User user={user} key={user.id}>card</User>)}
+            {cardUsers.sort((a,b) => a.id - b.id).map(user => <User user={user} key={user.id}>card</User>)}
         </div>
     );
 };
